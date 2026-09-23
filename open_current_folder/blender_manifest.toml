@@ -1,0 +1,14 @@
+schema_version = "1.0.0"
+id = "open_current_folder"
+version = "0.1.0"
+name = "Open Current Folder"
+tagline = "Open the current blend or image folder in your file manager"
+maintainer = "gosuni2025"
+type = "add-on"
+website = "https://github.com/gosuni2025/blender-toolbox"
+tags = ["System", "User Interface"]
+blender_version_min = "5.2.0"
+license = ["SPDX:GPL-3.0-or-later"]
+
+[permissions]
+files = "Read the current file path and open its folder"

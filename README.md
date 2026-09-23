@@ -1,91 +1,64 @@
-# UV Pixel Transform
+# Blender Toolbox
 
-Move, scale and rotate **UV islands together with their painted pixels** in Blender.
+Small Blender utilities by **gosuni2025**. Install each tool separately as a Blender extension.
 
-**Blender 5.2+ · GPL-3.0-or-later · v0.2.0**
+**Blender 5.2+ · GPL-3.0-or-later**
 
-[Download the extension](https://github.com/gosuni2025/uv-pixel-transform/releases/latest) · [한국어 사용법](docs/README.ko.md) · [Profiling](docs/PROFILING.md)
+## Tools
 
-## Demo
+| Tool | What it does | Install / guide |
+| --- | --- | --- |
+| **Open Current Folder** | Opens the current `.blend` or image folder in Finder, Explorer or your Linux file manager | [Download 0.1.0](https://github.com/gosuni2025/blender-toolbox/releases/tag/open-current-folder-v0.1.0) · [Guide / 한국어](docs/OPEN_CURRENT_FOLDER.md) |
+| **UV Pixel Transform** | Moves, scales and rotates UV islands together with their painted pixels | [Download 0.2.0](https://github.com/gosuni2025/blender-toolbox/releases/tag/v0.2.0) · [Guide](docs/UV_PIXEL_TRANSFORM.md) · [한국어](docs/README.ko.md) |
+
+## Open Current Folder
+
+Choose the new folder command at the bottom of Blender's **File** menu:
+
+- **Layout / normal 3D work:** **Open .blend Folder** opens the saved project folder.
+- **UV Editing:** **Open Image Folder** opens the displayed image's folder.
+- **Texture Paint:** it opens the active paint canvas or material paint image's folder.
+- In an **Image Editor**, use **Image → Open Image Folder**, or **F3 → Open Current File Folder**, to target that editor's displayed image directly.
+
+It uses editor roles and paint targets, so renaming a workspace does not break the choice. If several UV images are open, choose the desired editor's Image menu. Unsaved/generated images and images stored only inside a `.blend` receive an explanation instead of opening an unrelated folder. Relative image paths are resolved against the `.blend` or linked library.
+
+**한국어:** 설치 후 **파일 → .blend 파일 폴더 열기 / 이미지 폴더 열기**를 사용하세요. Layout에서는 프로젝트 폴더, Texture Paint·UV에서는 작업 이미지 폴더를 엽니다. 애드온 설정의 **Language → 한국어**로 메뉴 언어를 지정할 수 있습니다.
+
+## UV Pixel Transform demo
 
 [![UV islands and painted pixels moving together](docs/media/demo.gif)](docs/media/demo.mp4)
 
-[Watch the 720p / 24 fps MP4](docs/media/demo.mp4). This recording shows the earlier v0.1.1 development build. The current release adds a floating GPU layer, off-canvas editing, filters and localization. Original recording: 38 MB; compressed MP4: about 0.54 MB; inline GIF: about 3.4 MB. Audio is omitted.
-
-## A floating layer until you apply
-
-1. Open **UV Editing**, enter **Edit Mode**, and display the painted image.
-2. Select a UV island. Partial selections expand to the whole connected island.
-3. Open **N → UV + Pixels** and choose a transform.
-4. Bring the pointer onto the image canvas. Move the floating layer; switch with **G / S / R** to move, scale or rotate in the same operation.
-5. **Enter / left-click** applies both UVs and pixels once. **Esc / right-click** discards the layer. **Ctrl+Z** undoes the applied UV and pixel changes together.
-6. Save the image with **Image → Save**, then save your `.blend`.
-
-While the layer is floating, the original image, actual UV map and 3D material remain unchanged. The preview can overlap existing artwork. With outside preview enabled, the painted layer stays visible beyond the image boundary and can be brought back before applying.
-
-This is a temporary transform layer, not a persistent layer stack. It is baked into the image on Apply.
-
-### Controls
-
-| Control | Action |
-| --- | --- |
-| G / S / R during a transform | Switch mode without baking intermediate results |
-| Type a number | Pixels for movement, factor for scaling, degrees for rotation |
-| X / Y | Constrain movement; numeric movement defaults to X |
-| Ctrl | Snap to pixels, 0.1 scale increments, or 15° rotation increments |
-| Shift | Fine mouse adjustments |
-| Mouse wheel / trackpad / middle mouse | Zoom or pan the UV view without interrupting the floating transform |
-| Precise Transform… | Enter translation, scale and rotation together |
-| Enter / left-click | Apply |
-| Esc / right-click | Cancel |
-
-Normal Blender G/R/S retain their normal behavior outside an add-on transform. Start with the sidebar buttons or the **UV** menu.
-
-## Options
-
-| Option | Behavior |
-| --- | --- |
-| Language | Auto, English, 한국어, 日本語, 简体中文, 繁體中文, Español |
-| Sampling | Nearest, Bilinear, Bicubic (Catmull–Rom), or Lanczos (3 lobes) |
-| Padding | Extend edge colors when applying, from 0–16 pixels |
-| Clear old pixels on apply | **Off by default.** Keep the original artwork; enable to erase the source island when applying |
-| Live pixel preview | Show the painted floating layer; disable to show its UV outline only |
-| Allow outside preview | **On by default.** Continue transforming beyond the image; return the entire island inside before applying |
-| Protect other islands on apply | **On by default.** Preview overlap freely, but block applying over another island. Disable explicitly to composite over it |
-
-All filters handle transparency using premultiplied alpha. GPU previews and the final CPU rasterizer use the same kernels. Sharper filters can ring around high-contrast edges; choose Bilinear for a softer result or Nearest for pixel art. Scaling increases the allocated texture area; it cannot recover detail absent from the source.
-
-Buttons, settings, filter names, modal hints and operational errors support all listed languages. **Auto** follows Blender; choosing a language here affects this add-on only. Native Blender dialogs and some tooltips follow Blender's own UI language.
+[720p / 24 fps MP4](docs/media/demo.mp4), about **0.54 MB** from a 38 MB recording. This video shows the earlier 0.1.1 development build; 0.2.0 adds floating GPU layers, off-canvas transforms, four filters, view navigation and six UI languages. [Full guide](docs/UV_PIXEL_TRANSFORM.md) · [Profiling](docs/PROFILING.md).
 
 ## Install
 
-Download **`uv_pixel_transform-0.2.0.zip`** from [Releases](https://github.com/gosuni2025/uv-pixel-transform/releases/latest).
+1. Download the selected tool's extension ZIP from its release above.
+2. In Blender, open **Edit → Preferences → Add-ons → dropdown → Install from Disk…**.
+3. Select the ZIP and enable the extension. Install either or both tools.
 
-In Blender: **Edit → Preferences → Add-ons → dropdown → Install from Disk…**, choose that ZIP and enable the extension. Use the extension ZIP, not GitHub's automatically generated source archive.
+Use the extension ZIP, not GitHub's automatic source archive. Neither tool needs a network connection. Both provide English, Korean, Japanese, Simplified Chinese, Traditional Chinese and Spanish UI.
 
-No network access or external Python dependencies are required. NumPy and the GPU API are supplied by Blender.
+## Development and validation
 
-## Current scope
+Each top-level package is independently installable:
 
-- Tested on **Blender 5.2.2 LTS, macOS/Metal**. Other operating systems and GPUs have not yet been verified.
-- One mesh, one active UV map and one displayed RGBA image per operation; images up to 16 megapixels.
-- Direct UV image mapping and explicit UV Map nodes are supported. Mapping-node transforms, node-group image sources, procedural materials, UDIMs, repeating UVs, sequences, movies and linked library data are not supported.
-- Starting UVs must be within the 0–1 tile. Selected/unselected islands sharing the same source pixels must be selected together. Other mesh objects sharing the image need their own image first.
-- sRGB and linear Rec.709 previews are supported. Custom OCIO display transforms and other source color spaces have not been validated. Tangent-space normal vectors are not reoriented.
-- The layer samples the original source throughout a gesture. Repeated **applied** transforms can still accumulate normal resampling loss.
-- Compressed image undo snapshots live in memory and are cleared when opening a file or disabling the extension. Save your image before disabling it. Images are never saved automatically.
-
-## Development
+```text
+open_current_folder/   File and image folder utility
+uv_pixel_transform/    Painted UV transforms
+tests/                 CPU and isolated Blender integration tests
+docs/                  Guides, measurements and demonstration media
+```
 
 ```sh
 python -m pip install numpy
 python -m unittest discover -s tests -v
+blender -b --factory-startup --python-exit-code 1 --python tests/folder_blender_integration.py
 blender -b --factory-startup --python-exit-code 1 --python tests/blender_integration.py
 blender --factory-startup --python tests/run_gui_tests.py
-blender --command extension validate uv_pixel_transform
-blender --command extension build --source-dir uv_pixel_transform --output-dir dist
+blender --command extension validate open_current_folder
+blender --command extension build --source-dir open_current_folder --output-dir dist
 ```
 
-The GUI runner starts with a factory scene and exits its own process after testing. **Never execute these scene-building tests in your working Blender document.** See [test results](docs/TEST_RESULTS.md).
+Integration tests build temporary scenes and must run in their own factory-startup Blender process. Tested on Blender 5.2.2 LTS / macOS; Windows and Linux file-manager launching use Blender's native API and have not been tested here. [Validation details](docs/TEST_RESULTS.md).
 
-The extension code is licensed under **GPL-3.0-or-later**. It was written for this project; no code was copied from other UV add-ons. Demo footage and artwork are separate from the extension's source-code license.
+Previously named `uv-pixel-transform`; existing UV tool releases and Git history are retained. Source code is **GPL-3.0-or-later**. Demonstration footage and artwork are separate from the source-code license.

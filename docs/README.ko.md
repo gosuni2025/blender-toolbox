@@ -2,7 +2,7 @@
 
 UV 섬을 이미 칠한 그림과 함께 이동·확대·회전하는 Blender 애드온입니다.
 
-[최신 설치 ZIP 받기](https://github.com/gosuni2025/uv-pixel-transform/releases/latest)
+[최신 설치 ZIP 받기](https://github.com/gosuni2025/blender-toolbox/releases/tag/v0.2.0)
 
 ## 사용법
 
@@ -53,7 +53,7 @@ UV 섬을 이미 칠한 그림과 함께 이동·확대·회전하는 Blender �
 
 Auto / 한국어 / English / 日本語 / 简体中文 / 繁體中文 / Español. 버튼·옵션·필터·조작 안내·오류 메시지를 번역합니다. Blender 자체 대화상자와 일부 툴팁은 Blender의 언어 설정을 따릅니다.
 
-Blender 5.2.2 LTS / macOS Metal에서 검증했습니다. 한 메시·한 UV 맵·한 RGBA 이미지가 대상입니다. UDIM, 반복 UV, Mapping 노드, 여러 오브젝트의 공유 이미지, 노멀맵 방향 보정은 아직 지원하지 않습니다. 모든 초기 UV는 이미지 안에 있어야 합니다. 자세한 범위는 [영문 README](../README.md)를 참고하세요.
+Blender 5.2.2 LTS / macOS Metal에서 검증했습니다. 한 메시·한 UV 맵·한 RGBA 이미지가 대상입니다. UDIM, 반복 UV, Mapping 노드, 여러 오브젝트의 공유 이미지, 노멀맵 방향 보정은 아직 지원하지 않습니다. 모든 초기 UV는 이미지 안에 있어야 합니다. 자세한 범위는 [영문 README](UV_PIXEL_TRANSFORM.md)를 참고하세요.
 
 이미지 되돌리기 기록은 메모리에 보관됩니다. 파일을 다시 열거나 애드온을 끄기 전에 이미지를 저장하세요.
 
