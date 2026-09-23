@@ -192,6 +192,17 @@ with bpy.context.temp_override(area=area, region=region):
         np.testing.assert_allclose(op.layer.matrix[:2, 2], [12, 8])
         uv_after = np.array([l[op.session.uv].uv[:] for l in op.session.loops])
         np.testing.assert_array_equal(uv_after, op.session.original_uv)
+        # Native navigation must receive wheel/pan events, and a changed View2D
+        # must not be interpreted as a large texture-space drag.
+        matrix_before_navigation = op.session.matrix.copy()
+        for kind in ('WHEELUPMOUSE','WHEELDOWNMOUSE','TRACKPADZOOM','TRACKPADPAN','MIDDLEMOUSE'):
+            assert op.modal(bpy.context, event(kind)) == {'PASS_THROUGH'}
+        bpy.ops.image.view_zoom_ratio(ratio=2.0)
+        op.modal(bpy.context, mouse(moved.mouse_x + 30, moved.mouse_y + 30))
+        np.testing.assert_array_equal(op.session.matrix, matrix_before_navigation)
+        op.modal(bpy.context, mouse(moved.mouse_x + 35, moved.mouse_y + 30))
+        assert not np.array_equal(op.session.matrix, matrix_before_navigation)
+        print('PASS wheel/trackpad/pan pass-through and no jump after native zoom')
         op.modal(bpy.context, event('ESC'))
         np.testing.assert_array_equal(addon.read_pixels(image), pixels)
         print('PASS mouse Move, sidebar entry, previous-mode reset, floating displacement, untouched source, cancel')

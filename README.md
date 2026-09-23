@@ -34,6 +34,7 @@ This is a temporary transform layer, not a persistent layer stack. It is baked i
 | X / Y | Constrain movement; numeric movement defaults to X |
 | Ctrl | Snap to pixels, 0.1 scale increments, or 15° rotation increments |
 | Shift | Fine mouse adjustments |
+| Mouse wheel / trackpad / middle mouse | Zoom or pan the UV view without interrupting the floating transform |
 | Precise Transform… | Enter translation, scale and rotation together |
 | Enter / left-click | Apply |
 | Esc / right-click | Cancel |

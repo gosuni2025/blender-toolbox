@@ -381,6 +381,7 @@ class UVPT_OT_transform(bpy.types.Operator):
         self.axis = None
         self.numeric = ""
         self.pending = False
+        self.reanchor_after_navigation = False
         self.error = ""
         self.header_text = None
         self.last_preview = 0.0
@@ -494,6 +495,16 @@ class UVPT_OT_transform(bpy.types.Operator):
         try:
             if self.layer.error:
                 raise RuntimeError('GPU preview: ' + self.layer.error)
+            if event.type in {'WHEELUPMOUSE', 'WHEELDOWNMOUSE', 'WHEELINMOUSE', 'WHEELOUTMOUSE',
+                              'TRACKPADZOOM', 'TRACKPADPAN', 'MIDDLEMOUSE', 'NDOF_MOTION'}:
+                self.reanchor_after_navigation = True
+                return {'PASS_THROUGH'}
+            if self.reanchor_after_navigation and event.type == 'MOUSEMOVE':
+                # Blender has now applied the native zoom/pan. Re-anchor the
+                # pointer in that updated View2D without changing the layer.
+                self.start = self.pointer = self.mouse_pixels(event)
+                self.reanchor_after_navigation = False
+                return {'RUNNING_MODAL'}
             if event.type in {'ESC', 'RIGHTMOUSE'}:
                 return self.finish(context, True)
             if event.type in {'RET', 'NUMPAD_ENTER', 'LEFTMOUSE'} and event.value == 'PRESS':
