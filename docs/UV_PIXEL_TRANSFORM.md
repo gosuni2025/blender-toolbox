@@ -2,9 +2,9 @@
 
 Move, scale and rotate **UV islands together with their painted pixels** in Blender.
 
-**Blender 5.2+ · GPL-3.0-or-later · v0.2.0**
+**Blender 5.2+ · GPL-3.0-or-later · v0.2.1**
 
-[Download the extension](https://github.com/gosuni2025/blender-toolbox/releases/tag/v0.2.0) · [한국어 사용법](README.ko.md) · [Profiling](PROFILING.md)
+[Download the extension](https://github.com/gosuni2025/blender-toolbox/releases/tag/v0.2.1) · [한국어 사용법](README.ko.md) · [Profiling](PROFILING.md)
 
 ## Demo
 
@@ -55,11 +55,13 @@ Normal Blender G/R/S retain their normal behavior outside an add-on transform. S
 
 All filters handle transparency using premultiplied alpha. GPU previews and the final CPU rasterizer use the same kernels. Sharper filters can ring around high-contrast edges; choose Bilinear for a softer result or Nearest for pixel art. Scaling increases the allocated texture area; it cannot recover detail absent from the source.
 
+Padding is filled only where space is available. Two padding margins touching no longer block a transform (0.2.1). Scaling over the selected island's original pixels is allowed; protected neighbouring islands and their existing gutters remain unchanged. The transformed UV body entering a protected neighbour's area still blocks application.
+
 Buttons, settings, filter names, modal hints and operational errors support all listed languages. **Auto** follows Blender; choosing a language here affects this add-on only. Native Blender dialogs and some tooltips follow Blender's own UI language.
 
 ## Install
 
-Download **`uv_pixel_transform-0.2.0.zip`** from [Releases](https://github.com/gosuni2025/blender-toolbox/releases/tag/v0.2.0).
+Download **`uv_pixel_transform-0.2.1.zip`** from [Releases](https://github.com/gosuni2025/blender-toolbox/releases/tag/v0.2.1).
 
 In Blender: **Edit → Preferences → Add-ons → dropdown → Install from Disk…**, choose that ZIP and enable the extension. Use the extension ZIP, not GitHub's automatically generated source archive.
 

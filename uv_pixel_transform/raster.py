@@ -157,7 +157,10 @@ class PixelSelection:
         self.stationary = triangle_mask(other, self.width, self.height)
         if np.any(self.mask & self.stationary):
             raise TransformError("Selected and unselected UVs share pixels. Select all stacked islands together.")
-        self.protected = dilate(self.stationary, self.padding)
+        # Dense atlases can already place the source inside a neighbour's
+        # nominal gutter. Those pixels belong to the selected island, and
+        # must remain usable when scaling/rotating over its original area.
+        self.protected = dilate(self.stationary, self.padding) & ~self.mask
         self.erase_mask = self.mask | (dilate(self.mask, self.padding) & ~self.protected)
         self.erase_indices = np.flatnonzero(self.erase_mask)
         # Extrude only the selected pixels before interpolation. This prevents
@@ -203,7 +206,9 @@ class PixelSelection:
             if allow_outside and outside:
                 return result
             raise TransformError("The transformed selection is smaller than a pixel.")
-        if np.any(dilate(mask, self.padding) & protected):
+        # Padding is best-effort: clip destination extrusion against protected
+        # texels below. Overlapping two gutters must not reject the UV body.
+        if np.any(mask & protected):
             raise TransformError("Destination overlaps another island or its padding. Move it or reduce Padding.")
         patch = result[y0:y1, x0:x1]
         inverse = np.linalg.inv(matrix)

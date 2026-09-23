@@ -2,9 +2,10 @@
 
 Environment: Blender 5.2.2 LTS, macOS / Metal, bundled Python 3.13 and NumPy 2.3.4.
 
-## UV Pixel Transform 0.2.0
+## UV Pixel Transform 0.2.1
 
-- **20 CPU tests:** exact translation; scaling and non-square rotation; all four filters; premultiplied-alpha interpolation; alpha compositing; original-pixel preservation; concave masks; source/destination protection; explicit overwrite; off-canvas round trips; invalid bounds and tiny selections.
+- **23 CPU tests:** exact translation; scaling and non-square rotation; all four filters; premultiplied-alpha interpolation; alpha compositing; original-pixel preservation; concave masks; source/destination protection; explicit overwrite; off-canvas round trips; invalid bounds and tiny selections; self-scaling with touching gutters; ownership of original source pixels; rejection of UV bodies entering a neighbouring gutter.
+- **Reported 64×64 atlas reproduction:** copies of the reported island at 1.5×, 1.9×, 2× and 2.2× now render with padding 2 and protection enabled. Both keep-source and clear-source modes preserve every stationary/protected pixel. The user's live image and UVs were not transformed by this test; private scene data is not included in this repository.
 - **Background Blender integration:** material/UV checks, direct application, cancellation, true Blender undo/redo for UVs and pixels, UV Sync, partial selection expansion and saved revision handling.
 - **Isolated GUI integration:** mouse movement, sidebar entry, remembered operator values, numeric input, zero-scale rejection, continuous rotation through 360°, Shift precision, G/R/S chaining outside and back, unchanged source during floating preview, source-preservation option, overlap preview with protected application, Enter, Esc and undo.
 - **View navigation during transforms:** wheel, trackpad and middle-button navigation events pass through to Blender; a native zoom followed by pointer motion preserves the floating transform without a jump.

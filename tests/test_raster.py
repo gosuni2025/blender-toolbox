@@ -80,6 +80,32 @@ class RasterTests(unittest.TestCase):
         with self.assertRaisesRegex(TransformError, 'share pixels'):
             PixelSelection(self.image, self.tris, self.tris, padding=0)
 
+    def test_self_scale_clips_padding_instead_of_rejecting_gutter_contact(self):
+        image = self.image.copy()
+        image[2:10, 9:17] = [0, .6, .8, 1]
+        selection = PixelSelection(image, self.tris, rectangle(11, 4, 4, 4), padding=2)
+        protected_before = image[selection.protected].copy()
+        for clear in (False, True):
+            result = selection.render(affine((6, 6), scale=1.2), clear_source=clear, composite=True)
+            np.testing.assert_array_equal(result[selection.protected], protected_before)
+            np.testing.assert_array_equal(selection.image, image)
+            self.assertTrue(result[selection.mask, 3].any())
+
+    def test_source_pixels_remain_usable_inside_existing_neighbour_gutter(self):
+        image = self.image.copy()
+        image[4:8, 9:13] = [0, .6, .8, 1]
+        selection = PixelSelection(image, self.tris, rectangle(9, 4, 4, 4), padding=2)
+        for clear in (False, True):
+            result = selection.render(affine((6, 6), scale=.9), clear_source=clear, composite=True)
+            np.testing.assert_array_equal(result[selection.stationary], image[selection.stationary])
+            np.testing.assert_array_equal(result[selection.protected], image[selection.protected])
+
+    def test_uv_body_entering_neighbour_gutter_is_still_rejected(self):
+        selection = PixelSelection(self.image, self.tris, rectangle(11, 4, 4, 4), padding=2)
+        with self.assertRaisesRegex(TransformError, 'overlaps'):
+            selection.render(affine((6, 6), (3, 0)))
+        np.testing.assert_array_equal(selection.image, self.image)
+
     def test_out_of_bounds_rejected_without_mutation(self):
         selection = PixelSelection(self.image, self.tris, padding=0)
         with self.assertRaisesRegex(TransformError, 'inside'):

@@ -1,11 +1,11 @@
 schema_version = "1.0.0"
 id = "uv_pixel_transform"
-version = "0.2.0"
+version = "0.2.1"
 name = "UV Pixel Transform"
 tagline = "Move, scale and rotate UV islands with their painted pixels"
 maintainer = "gosuni2025"
 type = "add-on"
-website = "https://github.com/gosuni2025/uv-pixel-transform"
+website = "https://github.com/gosuni2025/blender-toolbox"
 tags = ["UV", "Paint"]
 blender_version_min = "5.2.0"
 license = ["SPDX:GPL-3.0-or-later"]

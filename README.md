@@ -9,7 +9,7 @@ Small Blender utilities by **gosuni2025**. Install each tool separately as a Ble
 | Tool | What it does | Install / guide |
 | --- | --- | --- |
 | **Open Current Folder** | Opens the current `.blend` or image folder in Finder, Explorer or your Linux file manager | [Download 0.1.0](https://github.com/gosuni2025/blender-toolbox/releases/tag/open-current-folder-v0.1.0) · [Guide / 한국어](docs/OPEN_CURRENT_FOLDER.md) |
-| **UV Pixel Transform** | Moves, scales and rotates UV islands together with their painted pixels | [Download 0.2.0](https://github.com/gosuni2025/blender-toolbox/releases/tag/v0.2.0) · [Guide](docs/UV_PIXEL_TRANSFORM.md) · [한국어](docs/README.ko.md) |
+| **UV Pixel Transform** | Moves, scales and rotates UV islands together with their painted pixels | [Download 0.2.1](https://github.com/gosuni2025/blender-toolbox/releases/tag/v0.2.1) · [Guide](docs/UV_PIXEL_TRANSFORM.md) · [한국어](docs/README.ko.md) |
 
 ## Open Current Folder
 

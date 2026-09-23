@@ -555,7 +555,7 @@ class UVPT_PT_panel(bpy.types.Panel):
     bl_space_type = 'IMAGE_EDITOR'
     bl_region_type = 'UI'
     bl_category = 'UV + Pixels'
-    bl_label = 'UV Pixel Transform 0.2.0'
+    bl_label = 'UV Pixel Transform 0.2.1'
 
     @classmethod
     def poll(cls, context):
